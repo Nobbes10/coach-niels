@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Coach Niels">
+<meta name="theme-color" content="#0e0f0e">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='115' fill='%230e0f0e'/%3E%3Ccircle cx='256' cy='195' r='110' fill='none' stroke='%23c5f135' stroke-width='1.5' opacity='0.15'/%3E%3Ccircle cx='256' cy='195' r='88' fill='none' stroke='%23c5f135' stroke-width='1' opacity='0.2'/%3E%3Ccircle cx='256' cy='133' r='30' fill='%23c5f135'/%3E%3Crect x='238' y='168' width='36' height='90' rx='16' fill='%23c5f135'/%3E%3Cpath d='M238 188 Q200 210 192 258' fill='none' stroke='%23c5f135' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M274 188 Q308 210 320 258' fill='none' stroke='%23c5f135' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M248 258 Q224 308 200 358' fill='none' stroke='%23c5f135' stroke-width='24' stroke-linecap='round'/%3E%3Cpath d='M200 358 Q184 372 164 370' fill='none' stroke='%23c5f135' stroke-width='20' stroke-linecap='round'/%3E%3Cpath d='M268 258 Q292 308 316 340' fill='none' stroke='%23c5f135' stroke-width='24' stroke-linecap='round'/%3E%3Cpath d='M316 340 Q334 322 348 312' fill='none' stroke='%23c5f135' stroke-width='20' stroke-linecap='round'/%3E%3Cline x1='100' y1='400' x2='412' y2='400' stroke='%23c5f135' stroke-width='5' stroke-linecap='round' opacity='0.4'/%3E%3C/svg%3E">
+<title>Coach Niels</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f0e;
+  --bg2: #161714;
+  --bg3: #1e1f1c;
+  --border: #2a2b27;
+  --border2: #363730;
+  --text: #e8e6df;
+  --text2: #9a9890;
+  --text3: #5a5952;
+  --accent: #c5f135;
+  --accent2: #a8d020;
+  --accent-dim: rgba(197,241,53,0.12);
+  --accent-dim2: rgba(197,241,53,0.06);
+  --red: #ff6b4a;
+  --red-dim: rgba(255,107,74,0.12);
+  --blue: #5b9cf6;
+  --blue-dim: rgba(91,156,246,0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{
+  scroll-behavior:smooth;
+  background:#0e0f0e;
+  height:100%;
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  height:100%;
+  font-size:15px;
+  line-height:1.6;
+  overscroll-behavior:none;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* LAYOUT */
+.shell{
+  display:flex;flex-direction:column;
+  height:100vh;height:100dvh;
+  max-width:480px;margin:0 auto;
+  overflow:hidden;
+}
+.header{
+  padding-top:calc(var(--safe-top) + 14px);
+  padding-left:calc(var(--safe-left) + 20px);
+  padding-right:calc(var(--safe-right) + 20px);
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+  background:rgba(14,15,14,0.96);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+.logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:-0.02em;
+  color:var(--accent);
+}
+.logo span{color:var(--text2);font-weight:400}
+.week-badge{
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  color:var(--text3);
+  background:var(--bg3);
+  border:1px solid var(--border);
+  padding:4px 10px;
+  border-radius:20px;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  padding:0 20px;
+  gap:4px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+  background:var(--bg);
+}
+.tab{
+  flex:1;
+  padding:12px 6px;
+  font-size:12px;
+  font-weight:500;
+  font-family:'DM Sans',sans-serif;
+  color:var(--text3);
+  background:transparent;
+  border:none;
+  border-bottom:2px solid transparent;
+  cursor:pointer;
+  transition:all 0.2s;
+  letter-spacing:0.02em;
+  -webkit-tap-highlight-color:transparent;
+}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab:hover:not(.active){color:var(--text2)}
+
+/* PANELS */
+.panel{display:none;flex:1;flex-direction:column;overflow:hidden;min-height:0}
+.panel.active{display:flex}
+
+/* DAY SELECTOR */
+.day-scroll{
+  display:flex;gap:8px;padding:14px 20px;
+  overflow-x:auto;scrollbar-width:none;flex-shrink:0;
+}
+.day-scroll::-webkit-scrollbar{display:none}
+.day-chip{
+  flex-shrink:0;
+  padding:7px 14px;
+  border-radius:20px;
+  border:1px solid var(--border2);
+  background:transparent;
+  cursor:pointer;
+  font-size:12px;
+  font-family:'DM Mono',monospace;
+  color:var(--text2);
+  transition:all 0.15s;
+  position:relative;
+  -webkit-tap-highlight-color:transparent;
+}
+.day-chip.active{background:var(--accent);color:#0e0f0e;border-color:var(--accent);font-weight:500}
+.day-chip.done{border-color:var(--accent);color:var(--accent)}
+.day-chip.done::after{content:'✓';margin-left:4px;font-size:10px}
+.day-chip.today-chip{border-color:var(--text3)}
+
+/* DAY CONTENT */
+.day-body{
+  padding:0 20px;
+  padding-bottom:calc(var(--safe-bottom) + 20px);
+  overflow-y:auto;flex:1;
+  -webkit-overflow-scrolling:touch;
+}
+.day-header{margin-bottom:16px}
+.day-title{
+  font-family:'Syne',sans-serif;
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  color:var(--text);
+  line-height:1.2;
+}
+.day-sub{
+  font-size:13px;
+  color:var(--text2);
+  margin-top:4px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.pill{
+  display:inline-flex;align-items:center;
+  font-size:11px;font-family:'DM Mono',monospace;
+  padding:3px 8px;border-radius:20px;
+}
+.pill-green{background:var(--accent-dim);color:var(--accent)}
+.pill-blue{background:var(--blue-dim);color:var(--blue)}
+.pill-orange{background:rgba(255,180,50,0.12);color:#ffb432}
+.pill-today{background:var(--accent-dim2);border:1px solid var(--accent);color:var(--accent)}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:16px}
+.progress-row{display:flex;justify-content:space-between;margin-bottom:6px}
+.progress-row span{font-size:12px;font-family:'DM Mono',monospace;color:var(--text3)}
+.progress-row span:last-child{color:var(--accent)}
+.progress-track{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.4s cubic-bezier(.4,0,.2,1)}
+
+/* SECTIONS */
+.section-label{
+  font-size:10px;
+  font-family:'DM Mono',monospace;
+  font-weight:500;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  margin:20px 0 8px;
+}
+.ex-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  margin-bottom:6px;
+  cursor:pointer;
+  transition:border-color 0.15s,background 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.ex-item:active{opacity:0.8}
+.ex-item.checked{background:var(--bg3);border-color:var(--border)}
+.ex-item.checked .ex-name{color:var(--text3);text-decoration:line-through}
+.ex-item.checked .ex-detail{color:var(--text3)}
+.check{
+  width:20px;height:20px;
+  border-radius:50%;
+  border:1.5px solid var(--border2);
+  flex-shrink:0;margin-top:2px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;
+}
+.ex-item.checked .check{background:var(--accent);border-color:var(--accent)}
+.check-icon{display:none;width:9px;height:9px}
+.ex-item.checked .check-icon{display:block}
+.ex-name{font-size:14px;font-weight:500;color:var(--text);line-height:1.3}
+.ex-detail{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5}
+
+/* TIP */
+.tip-box{
+  margin-top:20px;
+  padding:14px;
+  border-left:2px solid var(--accent);
+  background:var(--accent-dim2);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+.tip-label{font-size:10px;font-family:'DM Mono',monospace;color:var(--accent);letter-spacing:0.08em;margin-bottom:4px}
+.tip-text{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* DONE STATE */
+.all-done{
+  text-align:center;padding:32px 20px;
+}
+.done-circle{
+  width:56px;height:56px;
+  background:var(--accent-dim);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+}
+.done-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.done-tip{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* RESET BTN */
+.reset-btn{
+  background:transparent;border:none;
+  font-size:11px;font-family:'DM Mono',monospace;
+  color:var(--text3);cursor:pointer;
+  text-decoration:underline;padding:0;
+}
+.reset-btn:hover{color:var(--text2)}
+
+/* CHAT PANEL */
+.chat-panel{display:none;flex:1;flex-direction:column}
+.chat-panel.active{display:flex}
+.chat-messages{
+  flex:1;overflow-y:auto;
+  padding:16px 20px;
+  display:flex;flex-direction:column;gap:12px;
+  min-height:0;
+}
+.msg{display:flex;flex-direction:column;gap:4px;max-width:88%}
+.msg.user{align-self:flex-end;align-items:flex-end}
+.msg.assistant{align-self:flex-start;align-items:flex-start}
+.msg-bubble{
+  padding:11px 14px;
+  border-radius:var(--radius);
+  font-size:14px;line-height:1.6;
+}
+.msg.user .msg-bubble{
+  background:var(--accent);
+  color:#0e0f0e;
+  border-radius:var(--radius) var(--radius) 4px var(--radius);
+  font-weight:500;
+}
+.msg.assistant .msg-bubble{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:var(--radius) var(--radius) var(--radius) 4px;
+}
+.msg-time{font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);padding:0 4px}
+.typing{display:flex;align-items:center;gap:4px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius) var(--radius) var(--radius) 4px}
+.typing span{width:5px;height:5px;background:var(--text3);border-radius:50%;animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+
+.chat-input-wrap{
+  padding:12px 20px;
+  padding-bottom:calc(var(--safe-bottom) + 12px);
+  border-top:1px solid var(--border);
+  background:var(--bg);
+  display:flex;gap:10px;align-items:flex-end;
+  flex-shrink:0;
+}
+.chat-input{
+  flex:1;
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius);
+  padding:11px 14px;
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:16px;
+  resize:none;
+  outline:none;
+  transition:border-color 0.15s;
+  min-height:44px;max-height:120px;
+  -webkit-appearance:none;
+}
+.chat-input:focus{border-color:var(--accent)}
+.chat-input::placeholder{color:var(--text3)}
+.send-btn{
+  width:44px;height:44px;
+  background:var(--accent);
+  border:none;border-radius:var(--radius-sm);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.send-btn:hover{background:var(--accent2)}
+.send-btn:disabled{background:var(--bg3);cursor:not-allowed}
+.send-btn svg{color:#0e0f0e}
+
+/* WEEK OVERVIEW */
+.overview-panel{display:none;flex:1;flex-direction:column;min-height:0}
+.overview-panel.active{display:flex}
+.overview-body{
+  padding:16px 20px;
+  padding-bottom:calc(var(--safe-bottom) + 32px);
+  overflow-y:auto;
+  flex:1;
+  -webkit-overflow-scrolling:touch;
+}
+.ov-week{margin-bottom:28px}
+.ov-week-title{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:13px;color:var(--text3);letter-spacing:0.04em;
+  text-transform:uppercase;margin-bottom:12px;
+}
+.ov-day{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 14px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);margin-bottom:6px;
+  cursor:pointer;transition:border-color 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.ov-day:hover{border-color:var(--border2)}
+.ov-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ov-dot-run{background:var(--accent)}
+.ov-dot-kracht{background:var(--blue)}
+.ov-dot-rust{background:var(--text3)}
+.ov-dot-vrij{background:#ffb432}
+.ov-day-name{font-size:13px;font-weight:500;color:var(--text);flex:1}
+.ov-day-type{font-size:12px;color:var(--text2)}
+.ov-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3)}
+.ov-pct.done{color:var(--accent)}
+
+/* RULES */
+.rules-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;margin-top:20px;
+}
+.rules-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:12px}
+.rule{display:flex;gap:10px;margin-bottom:10px}
+.rule:last-child{margin-bottom:0}
+.rule-num{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--accent-dim);color:var(--accent);
+  font-family:'DM Mono',monospace;font-size:11px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.rule-text{font-size:13px;color:var(--text2);line-height:1.5}
+
+@media(min-width:481px){
+  .shell{border-left:1px solid var(--border);border-right:1px solid var(--border)}
+}
+
+/* LOGBOEK */
+.log-form{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;margin-bottom:20px;
+}
+.log-form-title{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:15px;
+  color:var(--text);margin-bottom:14px;
+}
+.log-row{margin-bottom:12px}
+.log-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);
+  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px;display:block}
+.log-input,.log-select,.log-textarea{
+  width:100%;background:var(--bg3);border:1px solid var(--border2);
+  border-radius:var(--radius-sm);padding:10px 12px;
+  color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;
+  outline:none;transition:border-color 0.15s;
+}
+.log-input:focus,.log-select:focus,.log-textarea:focus{border-color:var(--accent)}
+.log-select option{background:var(--bg3)}
+.log-textarea{resize:none;min-height:72px}
+.log-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.log-slider-wrap{display:flex;align-items:center;gap:10px}
+.log-slider{
+  flex:1;-webkit-appearance:none;appearance:none;
+  height:3px;border-radius:2px;outline:none;cursor:pointer;
+  background:linear-gradient(to right, var(--accent) 0%, var(--accent) 50%, var(--bg3) 50%, var(--bg3) 100%);
+}
+.log-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:var(--accent);cursor:pointer;
+}
+.log-slider-val{
+  font-family:'DM Mono',monospace;font-size:13px;
+  color:var(--accent);min-width:24px;text-align:right;
+}
+.log-feeling{display:flex;gap:6px;flex-wrap:wrap}
+.feeling-btn{
+  padding:6px 12px;border-radius:20px;border:1px solid var(--border2);
+  background:transparent;color:var(--text2);font-size:12px;cursor:pointer;
+  transition:all 0.15s;font-family:'DM Sans',sans-serif;
+}
+.feeling-btn.sel-goed{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.feeling-btn.sel-ok{background:var(--blue-dim);border-color:var(--blue);color:var(--blue)}
+.feeling-btn.sel-zwaar{background:rgba(255,180,50,0.12);border-color:#ffb432;color:#ffb432}
+.feeling-btn.sel-pijn{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.log-submit{
+  width:100%;padding:12px;background:var(--accent);border:none;
+  border-radius:var(--radius-sm);color:#0e0f0e;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:14px;
+  cursor:pointer;transition:background 0.15s;margin-top:4px;
+}
+.log-submit:hover{background:var(--accent2)}
+.log-entries-title{
+  font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);
+  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;
+}
+.log-entry{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px;margin-bottom:8px;
+}
+.log-entry-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.log-entry-date{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3)}
+.log-entry-type{font-size:12px;color:var(--text2)}
+.log-entry-stats{display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.log-stat{display:flex;flex-direction:column;gap:2px}
+.log-stat-val{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--text)}
+.log-stat-key{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em}
+.log-entry-note{font-size:13px;color:var(--text2);line-height:1.5;margin-top:6px}
+.log-feeling-badge{
+  font-size:11px;padding:3px 8px;border-radius:20px;font-family:'DM Mono',monospace;
+}
+.badge-goed{background:var(--accent-dim);color:var(--accent)}
+.badge-ok{background:var(--blue-dim);color:var(--blue)}
+.badge-zwaar{background:rgba(255,180,50,0.12);color:#ffb432}
+.badge-pijn{background:var(--red-dim);color:var(--red)}
+.log-body-scores{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.body-score{font-size:11px;font-family:'DM Mono',monospace;padding:3px 8px;border-radius:20px;background:var(--bg3);color:var(--text3)}
+.del-btn{background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:12px;padding:2px 4px}
+.del-btn:hover{color:var(--red)}
+.empty-log{text-align:center;padding:32px 0;color:var(--text3);font-size:13px}
+
+/* CHAT PANEL proper layout */
+.chat-panel{display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden}
+.chat-panel.active{display:flex}
+.chat-messages{
+  flex:1;overflow-y:auto;
+  padding:16px 20px;
+  display:flex;flex-direction:column;gap:12px;
+  min-height:0;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* API KEY SETUP */
+.apikey-screen{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+.apikey-icon{
+  width:56px;height:56px;
+  background:var(--accent-dim);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;font-size:24px;
+}
+.apikey-title{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:18px;
+  color:var(--text);margin-bottom:8px;
+}
+.apikey-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px}
+.apikey-desc a{color:var(--accent);text-decoration:none}
+.apikey-input{
+  width:100%;background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--radius-sm);padding:12px 14px;
+  color:var(--text);font-family:'DM Mono',monospace;font-size:13px;
+  outline:none;transition:border-color 0.15s;margin-bottom:12px;
+  -webkit-appearance:none;
+}
+.apikey-input:focus{border-color:var(--accent)}
+.apikey-save{
+  width:100%;padding:13px;background:var(--accent);border:none;
+  border-radius:var(--radius-sm);color:#0e0f0e;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:14px;
+  cursor:pointer;
+}
+.apikey-note{font-size:11px;color:var(--text3);margin-top:12px;line-height:1.5}
+.apikey-change{
+  background:transparent;border:none;color:var(--text3);
+  font-size:11px;font-family:'DM Mono',monospace;
+  cursor:pointer;text-decoration:underline;margin-top:4px;
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="header">
+    <div class="logo">NIELS<span>/coach</span></div>
+    <div class="week-badge" id="weekBadge">week 1</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('schema')">Schema</button>
+    <button class="tab" onclick="switchTab('logboek')">Logboek</button>
+    <button class="tab" onclick="switchTab('overzicht')">Overzicht</button>
+    <button class="tab" onclick="switchTab('coach')">Coach</button>
+  </div>
+
+  <!-- SCHEMA PANEL -->
+  <div class="panel active" id="panel-schema">
+    <div class="day-scroll" id="dayScroll"></div>
+    <div class="day-body" id="dayBody"></div>
+  </div>
+
+  <!-- LOGBOEK PANEL -->
+  <div class="overview-panel" id="panel-logboek">
+    <div class="overview-body" id="logboekBody"></div>
+  </div>
+
+  <!-- OVERZICHT PANEL -->
+  <div class="overview-panel" id="panel-overzicht">
+    <div class="overview-body" id="overzichtBody"></div>
+  </div>
+
+  <!-- COACH PANEL -->
+  <div class="chat-panel" id="panel-coach">
+    <div id="apikey-screen" class="apikey-screen" style="display:none">
+      <div class="apikey-icon">🔑</div>
+      <div class="apikey-title">Coach activeren</div>
+      <div class="apikey-desc">
+        Om de coach te laten werken heb je een gratis Anthropic API-key nodig.<br><br>
+        Haal hem op via <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys → Create Key.
+      </div>
+      <input class="apikey-input" type="password" id="apikeyInput" placeholder="sk-ant-...">
+      <button class="apikey-save" onclick="saveApiKey()">Coach activeren</button>
+      <div class="apikey-note">De key wordt alleen lokaal op jouw telefoon opgeslagen. Hij wordt nergens naartoe verstuurd behalve naar de Anthropic API.</div>
+    </div>
+    <div id="chat-area" style="display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden">
+      <div class="chat-messages" id="chatMessages"></div>
+      <div style="padding:8px 20px 4px;display:flex;justify-content:flex-end;flex-shrink:0">
+        <button class="apikey-change" onclick="resetApiKey()">🔑 API key wijzigen</button>
+      </div>
+      <div class="chat-input-wrap">
+        <textarea class="chat-input" id="chatInput" placeholder="Vertel je coach hoe het gaat..." rows="1"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DAYS = [
+  {
+    id:'ma', label:'Ma', name:'Maandag', type:'Easy run', duration:'40–50 min', hr:'onder 145',
+    dot:'run', tipType:'run',
+    sections:[
+      {title:'Activering (altijd voor het lopen)', items:[
+        {name:'Clamshells', detail:'2 × 12 per kant — activeert gluteus medius, jouw zwakste schakel.'},
+        {name:'Glute bridges', detail:'2 × 12 langzaam — bekken stabiliseren voor het lopen.'}
+      ]},
+      {title:'Looptraining', items:[
+        {name:'5 min rustig inlopen', detail:'Kleine passen, land onder je zwaartepunt.'},
+        {name:'Easy run 30–40 min', detail:'Hartslag onder 145. Tempo ~7:00–7:30/km. Gesprek voeren moet kunnen.'},
+        {name:'Let op heuphoogte', detail:'Bekken neutraal — niet laten zakken aan de niet-steunende kant.'},
+        {name:'5 min uitlopen', detail:'Rustig afbouwen, niet abrupt stoppen.'}
+      ]},
+      {title:'Cooling-down', items:[
+        {name:'IT-band stretch', detail:'45 sec per kant — been kruisen, opzij leunen.'},
+        {name:'Heupflexor stretch', detail:'45 sec per kant — lunge-positie, bekken naar voren.'},
+        {name:'Vlinderstretch', detail:'60 sec — voeten samen, knieën naar de grond.'}
+      ]}
+    ],
+    tip:'Start van de week. Hartslag leidend, niet tempo. Hoe je heup en IT-band aanvoelen na afloop is de maatstaf.'
+  },
+  {
+    id:'di', label:'Di', name:'Dinsdag', type:'Rust', duration:'Hersteldag', hr:null,
+    dot:'rust', tipType:'rust',
+    sections:[
+      {title:'Actief herstel', items:[
+        {name:'Wandeling 20–30 min (optioneel)', detail:'Rustig, geen inspanning. Bevordert bloeddoorstroming.'},
+        {name:'Foam rolling (optioneel)', detail:'Billen en zijkant bil uitrollen. Niet de IT-band zelf inrollen.'},
+        {name:'Goed eten en slapen', detail:'~1.6g eiwit per kg lichaamsgewicht. Dit is waar herstel plaatsvindt.'}
+      ]}
+    ],
+    tip:'Jouw rustdag. Niks moet, alles mag. Je lichaam verwerkt de maandagtraining.'
+  },
+  {
+    id:'wo', label:'Wo', name:'Woensdag', type:'Looptraining', duration:'35–45 min', hr:'max 155–160',
+    dot:'run', tipType:'run',
+    sections:[
+      {title:'Activering', items:[
+        {name:'Clamshells + glute bridges', detail:'2 × 12 per oefening — verkorte activering voor het lopen.'}
+      ]},
+      {title:'Week 1–2: easy run', items:[
+        {name:'10 min rustig inlopen', detail:'Hartslag onder 140.'},
+        {name:'20 min easy run', detail:'Hartslag onder 145. Zelfde tempo als maandag.'},
+        {name:'5 min uitlopen', detail:'Rustig afbouwen.'}
+      ]},
+      {title:'Vanaf week 3: intervals', items:[
+        {name:'10 min rustig inlopen', detail:'Hartslag onder 140.'},
+        {name:'6 × 3 min sneller lopen', detail:'Hartslag 155–160. Herstel: 2 min rustig lopen tussen elke interval.'},
+        {name:'10 min rustig uitlopen', detail:'Hartslag naar onder 120.'}
+      ]},
+      {title:'Cooling-down', items:[
+        {name:'IT-band stretch', detail:'45 sec per kant.'},
+        {name:'Heupflexor stretch', detail:'45 sec per kant.'},
+        {name:'Vlinderstretch', detail:'60 sec.'}
+      ]}
+    ],
+    tip:'Week 1 en 2: gewoon rustig lopen. Pas vanaf week 3 intervals. Geen haast.'
+  },
+  {
+    id:'do', label:'Do', name:'Donderdag', type:'Kracht + activering', duration:'35–40 min', hr:null,
+    dot:'kracht', tipType:'kracht',
+    sections:[
+      {title:'Activering', items:[
+        {name:'Clamshells', detail:'3 × 15 per kant — weerstandsband voor extra belasting.'},
+        {name:'Side-lying leg raises', detail:'3 × 12 per kant — been gestrekt houden.'},
+        {name:'Glute bridges', detail:'3 × 15 langzaam — boven 2 sec vasthouden.'}
+      ]},
+      {title:'Krachtblok', items:[
+        {name:'Hip thrust', detail:'3 × 12 — schouders op bank, duw heupen omhoog tot rug recht.'},
+        {name:'Squat', detail:'3 × 10 — controleer afdaling 3 sec. Niet dieper dan comfortabel.'},
+        {name:'Romanian deadlift', detail:'3 × 10 — rug recht, gewichten langs benen. Voel rek in hamstrings.'},
+        {name:'Lunges', detail:'2 × 10 per kant — knie niet voorbij je teen.'},
+        {name:'Eenbenige calfraise', detail:'3 × 15 per kant — op een traptrede voor volledig bereik.'},
+        {name:'Eenbeen balans', detail:'3 × 30 sec per kant — ogen dicht als het makkelijk wordt.'}
+      ]},
+      {title:'Stretching', items:[
+        {name:'Piriformis stretch', detail:'45 sec per kant — figure-4 positie liggend.'},
+        {name:'Heupflexor stretch', detail:'45 sec per kant.'},
+        {name:'Vlinderstretch', detail:'60 sec.'}
+      ]}
+    ],
+    tip:'Focus op kwaliteit, niet gewicht. Liever licht met perfecte techniek dan zwaar met compensatie.'
+  },
+  {
+    id:'vr', label:'Vr', name:'Vrijdag', type:'Vrij / extra sport', duration:'Optioneel', hr:null,
+    dot:'vrij', tipType:'vrij',
+    sections:[
+      {title:'Kies zelf', items:[
+        {name:'Fietsen', detail:'Prima herstelactiviteit. Lage belasting op knieën en IT-band.'},
+        {name:'Padel', detail:'Leuk en actief. Let op laterale bewegingen — stop bij knieklachten.'},
+        {name:'Volledige rust', detail:'Ook prima. Luister naar je lichaam.'}
+      ]},
+      {title:'Als je toch loopt', items:[
+        {name:'Max 20–25 min easy', detail:'Hartslag onder 140. Alleen als je je fris voelt — nooit forceren.'}
+      ]}
+    ],
+    tip:'Vrijdag is jouw vrije dag. Doe wat energie geeft, niet wat energie kost.'
+  },
+  {
+    id:'za', label:'Za', name:'Zaterdag', type:'Kracht + activering', duration:'35–40 min', hr:null,
+    dot:'kracht', tipType:'kracht',
+    sections:[
+      {title:'Activering', items:[
+        {name:'Clamshells', detail:'3 × 15 per kant.'},
+        {name:'Side-lying leg raises', detail:'3 × 12 per kant.'},
+        {name:'Glute bridges', detail:'3 × 15.'}
+      ]},
+      {title:'Krachtblok', items:[
+        {name:'Hip thrust', detail:'3 × 12 — iets zwaarder dan donderdag als het goed voelde.'},
+        {name:'Squat', detail:'3 × 10.'},
+        {name:'Romanian deadlift', detail:'3 × 10.'},
+        {name:'Lunges', detail:'2 × 10 per kant.'},
+        {name:'Eenbenige calfraise', detail:'3 × 15 per kant.'},
+        {name:'Eenbeen balans', detail:'3 × 30 sec per kant.'}
+      ]},
+      {title:'Extra stretching (voorbereiding long run)', items:[
+        {name:'Piriformis stretch — extra lang', detail:'90 sec per kant.'},
+        {name:'IT-band stretch', detail:'60 sec per kant.'},
+        {name:'Heupflexor stretch', detail:'60 sec per kant.'}
+      ]}
+    ],
+    tip:'Eet vanavond koolhydraatrijk als voorbereiding op de long run van morgen.'
+  },
+  {
+    id:'zo', label:'Zo', name:'Zondag', type:'Long run', duration:'50–65 min (oplopend)', hr:'onder 150',
+    dot:'run', tipType:'run',
+    sections:[
+      {title:'Activering', items:[
+        {name:'Clamshells + glute bridges', detail:'2 × 12 — extra aandacht voor heupactivering.'},
+        {name:'10 min wandelen/rustig inlopen', detail:'Langer opwarmen dan normaal — je gaat ver.'}
+      ]},
+      {title:'Long run', items:[
+        {name:'Week 1–2: 45–50 min', detail:'Hartslag onder 150. Langzaamste tempo. ~7:15–7:45/km.'},
+        {name:'Week 3–4: 55–60 min', detail:'5 min langer. Niet sneller.'},
+        {name:'Week 6+: 65–70 min', detail:'Na de rustweek opbouwen. Max 75 min.'},
+        {name:'Looptechniek bewaken', detail:'Bij vermoeidheid passen verkorten, niet tempo verhogen.'}
+      ]},
+      {title:'Cooling-down', items:[
+        {name:'10 min wandelen', detail:'Na lange duurloop: langere cool-down.'},
+        {name:'IT-band stretch', detail:'60 sec per kant.'},
+        {name:'Piriformis stretch', detail:'60 sec per kant.'},
+        {name:'Heupflexor stretch', detail:'45 sec per kant.'},
+        {name:'Vlinderstretch', detail:'60 sec.'}
+      ]}
+    ],
+    tip:'De belangrijkste training van de week. Nooit sneller dan je hartslag toelaat. Hoe de IT-band aanvoelt op maandag is de graadmeter.'
+  }
+];
+
+const WEEK_START = new Date('2026-04-28'); // Monday week 1
+const KEY = 'coach_niels_v3';
+let state = {};
+let currentDay = 0;
+let chatHistory = [];
+let logEntries = [];
+let feelingSelected = '';
+
+function load() {
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { state = {}; }
+  try { chatHistory = JSON.parse(localStorage.getItem(KEY+'_chat') || '[]'); } catch(e) { chatHistory = []; }
+  try { logEntries = JSON.parse(localStorage.getItem(KEY+'_log') || '[]'); } catch(e) { logEntries = []; }
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+  try { localStorage.setItem(KEY+'_chat', JSON.stringify(chatHistory)); } catch(e) {}
+  try { localStorage.setItem(KEY+'_log', JSON.stringify(logEntries)); } catch(e) {}
+}
+function dk(dayId, si, ii) { return `${dayId}-${si}-${ii}`; }
+function isChecked(dayId, si, ii) { return !!state[dk(dayId,si,ii)]; }
+function toggleItem(dayId, si, ii) {
+  state[dk(dayId,si,ii)] = !state[dk(dayId,si,ii)];
+  save(); renderSchema(); renderOverzicht();
+}
+function resetDay() {
+  const d = DAYS[currentDay];
+  d.sections.forEach((s,si) => s.items.forEach((_,ii) => { delete state[dk(d.id,si,ii)]; }));
+  save(); renderSchema(); renderOverzicht();
+}
+function dayProgress(day) {
+  let t=0, done=0;
+  day.sections.forEach((s,si) => s.items.forEach((_,ii) => { t++; if(isChecked(day.id,si,ii)) done++; }));
+  return {t, done};
+}
+function getWeekNum() {
+  const now = new Date();
+  const diff = Math.floor((now - WEEK_START) / (7*24*60*60*1000));
+  return Math.max(1, diff+1);
+}
+function getTodayIdx() {
+  const d = new Date().getDay();
+  return d===0?6:d-1;
+}
+function formatTime() {
+  return new Date().toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
+}
+
+function switchTab(tab) {
+  const tabs = ['schema','logboek','overzicht','coach'];
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', tabs[i]===tab);
+  });
+  document.getElementById('panel-schema').style.display = tab==='schema'?'flex':'none';
+  document.getElementById('panel-schema').classList.toggle('active', tab==='schema');
+  document.getElementById('panel-logboek').style.display = tab==='logboek'?'flex':'none';
+  document.getElementById('panel-logboek').classList.toggle('active', tab==='logboek');
+  document.getElementById('panel-overzicht').style.display = tab==='overzicht'?'flex':'none';
+  document.getElementById('panel-overzicht').classList.toggle('active', tab==='overzicht');
+  document.getElementById('panel-coach').style.display = tab==='coach'?'flex':'none';
+  document.getElementById('panel-coach').classList.toggle('active', tab==='coach');
+  if(tab==='logboek') renderLogboek();
+  if(tab==='overzicht') renderOverzicht();
+  if(tab==='coach') { showCoachPanel(); }
+}
+
+function getApiKey() {
+  try { return localStorage.getItem(KEY+'_apikey') || ''; } catch(e) { return ''; }
+}
+function saveApiKey() {
+  const val = document.getElementById('apikeyInput').value.trim();
+  if(!val.startsWith('sk-ant-')) {
+    alert('Ongeldige key. Een Anthropic API-key begint met sk-ant-');
+    return;
+  }
+  try { localStorage.setItem(KEY+'_apikey', val); } catch(e) {}
+  showCoachPanel();
+}
+function resetApiKey() {
+  try { localStorage.removeItem(KEY+'_apikey'); } catch(e) {}
+  showCoachPanel();
+}
+function showCoachPanel() {
+  const key = getApiKey();
+  if(!key) {
+    document.getElementById('apikey-screen').style.display = 'flex';
+    document.getElementById('chat-area').style.display = 'none';
+  } else {
+    document.getElementById('apikey-screen').style.display = 'none';
+    document.getElementById('chat-area').style.display = 'flex';
+    renderChat();
+    scrollChat();
+  }
+}
+
+function selectFeeling(val) {
+  feelingSelected = val;
+  document.querySelectorAll('.feeling-btn').forEach(b => {
+    b.className = 'feeling-btn' + (b.dataset.val===val ? ` sel-${val}` : '');
+  });
+}
+
+function updateSlider(el) {
+  const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+  el.style.background = `linear-gradient(to right, var(--accent) 0%, var(--accent) ${pct}%, var(--bg3) ${pct}%, var(--bg3) 100%)`;
+  el.nextElementSibling.textContent = el.value;
+}
+
+function submitLog() {
+  const type = document.getElementById('log-type').value;
+  const datum = document.getElementById('log-datum').value;
+  const afstand = document.getElementById('log-afstand').value;
+  const tijd = document.getElementById('log-tijd').value;
+  const hartslag = document.getElementById('log-hartslag').value;
+  const itband = document.getElementById('log-itband').value;
+  const heup = document.getElementById('log-heup').value;
+  const knie = document.getElementById('log-knie').value;
+  const notitie = document.getElementById('log-notitie').value;
+
+  if(!datum || !type) { alert('Vul minimaal datum en type in.'); return; }
+
+  const entry = {
+    id: Date.now(),
+    datum, type, afstand, tijd, hartslag,
+    itband: parseInt(itband), heup: parseInt(heup), knie: parseInt(knie),
+    gevoel: feelingSelected,
+    notitie,
+    ts: new Date().toISOString()
+  };
+
+  logEntries.unshift(entry);
+  save();
+  feelingSelected = '';
+  renderLogboek();
+}
+
+function deleteLog(id) {
+  logEntries = logEntries.filter(e => e.id !== id);
+  save();
+  renderLogboek();
+}
+
+function formatDatum(d) {
+  if(!d) return '';
+  const [y,m,dd] = d.split('-');
+  const dagen = ['zo','ma','di','wo','do','vr','za'];
+  const dag = new Date(d).getDay();
+  return `${dagen[dag]} ${dd}/${m}`;
+}
+
+function bodyScoreColor(score) {
+  if(score <= 2) return 'badge-goed';
+  if(score <= 4) return 'badge-ok';
+  if(score <= 6) return 'badge-zwaar';
+  return 'badge-pijn';
+}
+
+function renderLogboek() {
+  const today = new Date().toISOString().split('T')[0];
+  const recentLogs = logEntries.slice(0,5).map(e => {
+    return `${formatDatum(e.datum)}: ${e.type}${e.afstand?' '+e.afstand+'km':''}${e.gevoel?' ('+e.gevoel+')':''}`;
+  }).join('; ');
+
+  let html = `<div class="log-form">
+    <div class="log-form-title">Training invoeren</div>
+    <div class="log-row">
+      <label class="log-label">Type training</label>
+      <select class="log-select" id="log-type">
+        <option value="">Kies type...</option>
+        <option value="Easy run">Easy run</option>
+        <option value="Intervaltraining">Intervaltraining</option>
+        <option value="Long run">Long run</option>
+        <option value="Kracht">Kracht + activering</option>
+        <option value="Fietsen">Fietsen</option>
+        <option value="Padel">Padel</option>
+        <option value="Overig">Overig</option>
+      </select>
+    </div>
+    <div class="log-grid">
+      <div class="log-row">
+        <label class="log-label">Datum</label>
+        <input class="log-input" type="date" id="log-datum" value="${today}">
+      </div>
+      <div class="log-row">
+        <label class="log-label">Gem. hartslag</label>
+        <input class="log-input" type="number" id="log-hartslag" placeholder="bijv. 143" min="60" max="200">
+      </div>
+    </div>
+    <div class="log-grid">
+      <div class="log-row">
+        <label class="log-label">Afstand (km)</label>
+        <input class="log-input" type="number" id="log-afstand" placeholder="bijv. 6.5" step="0.1">
+      </div>
+      <div class="log-row">
+        <label class="log-label">Tijd (min)</label>
+        <input class="log-input" type="number" id="log-tijd" placeholder="bijv. 48">
+      </div>
+    </div>
+    <div class="log-row">
+      <label class="log-label">Hoe voelde het?</label>
+      <div class="log-feeling">
+        <button class="feeling-btn" data-val="goed" onclick="selectFeeling('goed')">Goed</button>
+        <button class="feeling-btn" data-val="ok" onclick="selectFeeling('ok')">Prima</button>
+        <button class="feeling-btn" data-val="zwaar" onclick="selectFeeling('zwaar')">Zwaar</button>
+        <button class="feeling-btn" data-val="pijn" onclick="selectFeeling('pijn')">Pijnklacht</button>
+      </div>
+    </div>
+    <div class="log-row">
+      <label class="log-label">IT-band (0=geen klacht, 10=veel pijn)</label>
+      <div class="log-slider-wrap">
+        <input class="log-slider" type="range" id="log-itband" min="0" max="10" value="0" oninput="updateSlider(this)">
+        <span class="log-slider-val">0</span>
+      </div>
+    </div>
+    <div class="log-row">
+      <label class="log-label">Heup / snapping hip (0–10)</label>
+      <div class="log-slider-wrap">
+        <input class="log-slider" type="range" id="log-heup" min="0" max="10" value="0" oninput="updateSlider(this)">
+        <span class="log-slider-val">0</span>
+      </div>
+    </div>
+    <div class="log-row">
+      <label class="log-label">Knie (0–10)</label>
+      <div class="log-slider-wrap">
+        <input class="log-slider" type="range" id="log-knie" min="0" max="10" value="0" oninput="updateSlider(this)">
+        <span class="log-slider-val">0</span>
+      </div>
+    </div>
+    <div class="log-row">
+      <label class="log-label">Notitie</label>
+      <textarea class="log-textarea" id="log-notitie" placeholder="Hoe ging het? Bijzonderheden, weer, route..."></textarea>
+    </div>
+    <button class="log-submit" onclick="submitLog()">Training opslaan</button>
+  </div>`;
+
+  if(logEntries.length > 0) {
+    html += `<div class="log-entries-title">${logEntries.length} training${logEntries.length!==1?'en':''} gelogd</div>`;
+    logEntries.forEach(e => {
+      const hasBodyScore = e.itband>0||e.heup>0||e.knie>0;
+      html += `<div class="log-entry">
+        <div class="log-entry-header">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)">${e.type}</div>
+            <div class="log-entry-date">${formatDatum(e.datum)}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            ${e.gevoel?`<span class="log-feeling-badge badge-${e.gevoel}">${e.gevoel}</span>`:''}
+            <button class="del-btn" onclick="deleteLog(${e.id})">✕</button>
+          </div>
+        </div>
+        <div class="log-entry-stats">
+          ${e.afstand?`<div class="log-stat"><div class="log-stat-val">${e.afstand} km</div><div class="log-stat-key">afstand</div></div>`:''}
+          ${e.tijd?`<div class="log-stat"><div class="log-stat-val">${e.tijd} min</div><div class="log-stat-key">tijd</div></div>`:''}
+          ${e.hartslag?`<div class="log-stat"><div class="log-stat-val">${e.hartslag} bpm</div><div class="log-stat-key">hartslag</div></div>`:''}
+          ${e.afstand&&e.tijd?`<div class="log-stat"><div class="log-stat-val">${(e.tijd/e.afstand).toFixed(1)}/km</div><div class="log-stat-key">tempo</div></div>`:''}
+        </div>
+        ${hasBodyScore?`<div class="log-body-scores">
+          ${e.itband>0?`<span class="body-score ${bodyScoreColor(e.itband)}">IT-band: ${e.itband}/10</span>`:''}
+          ${e.heup>0?`<span class="body-score ${bodyScoreColor(e.heup)}">Heup: ${e.heup}/10</span>`:''}
+          ${e.knie>0?`<span class="body-score ${bodyScoreColor(e.knie)}">Knie: ${e.knie}/10</span>`:''}
+        </div>`:''}
+        ${e.notitie?`<div class="log-entry-note">${e.notitie}</div>`:''}
+      </div>`;
+    });
+  } else {
+    html += `<div class="empty-log">Nog geen trainingen gelogd.<br>Voer je eerste training in!</div>`;
+  }
+
+  document.getElementById('logboekBody').innerHTML = html;
+}
+
+
+function renderDayChips() {
+  const el = document.getElementById('dayScroll');
+  const todayIdx = getTodayIdx();
+  el.innerHTML = '';
+  DAYS.forEach((d,i) => {
+    const {t, done} = dayProgress(d);
+    const isDone = done===t && t>0;
+    const btn = document.createElement('button');
+    btn.className = 'day-chip' +
+      (i===currentDay?' active':'') +
+      (isDone&&i!==currentDay?' done':'') +
+      (i===todayIdx?' today-chip':'');
+    btn.textContent = d.label;
+    if(isDone && i!==currentDay) btn.textContent += '';
+    btn.onclick = () => { currentDay=i; renderSchema(); };
+    el.appendChild(btn);
+  });
+}
+
+function renderSchema() {
+  renderDayChips();
+  const day = DAYS[currentDay];
+  const todayIdx = getTodayIdx();
+  const {t, done} = dayProgress(day);
+  const pct = t ? Math.round(done/t*100) : 0;
+  const isDone = done===t && t>0;
+
+  let pillsHtml = `<span class="pill pill-${day.dot==='run'?'green':day.dot==='kracht'?'blue':day.dot==='vrij'?'orange':''}">
+    ${day.type}</span>`;
+  if(day.hr) pillsHtml += `<span class="pill pill-green">HR ${day.hr}</span>`;
+  if(currentDay===todayIdx) pillsHtml += `<span class="pill pill-today">vandaag</span>`;
+
+  let content = '';
+  if(isDone) {
+    content = `<div class="all-done">
+      <div class="done-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#c5f135" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="done-title">Training voltooid 🔥</div>
+      <div class="done-tip">${day.tip}</div>
+    </div>`;
+  } else {
+    day.sections.forEach((sec,si) => {
+      content += `<div class="section-label">${sec.title}</div>`;
+      sec.items.forEach((item,ii) => {
+        const c = isChecked(day.id,si,ii);
+        content += `<div class="ex-item${c?' checked':''}" onclick="toggleItem('${day.id}',${si},${ii})">
+          <div class="check"><svg class="check-icon" viewBox="0 0 9 9" fill="none"><path d="M1 4.5l2.5 2.5 4.5-5" stroke="#0e0f0e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><div class="ex-name">${item.name}</div><div class="ex-detail">${item.detail}</div></div>
+        </div>`;
+      });
+    });
+    content += `<div class="tip-box"><div class="tip-label">coach tip</div><div class="tip-text">${day.tip}</div></div>`;
+  }
+
+  document.getElementById('dayBody').innerHTML = `
+    <div class="day-header">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div class="day-title">${day.name}</div>
+        <button class="reset-btn" onclick="resetDay()">reset</button>
+      </div>
+      <div class="day-sub">${pillsHtml}</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-row"><span>${done} van ${t} afgerond</span><span>${pct}%</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    ${content}
+  `;
+}
+
+function renderOverzicht() {
+  const weekNum = getWeekNum();
+  document.getElementById('weekBadge').textContent = `week ${weekNum}`;
+
+  // Load goals
+  let goals = [];
+  try { goals = JSON.parse(localStorage.getItem(KEY+'_goals') || '[]'); } catch(e) {}
+
+  // Analyse recent logs for smart advice
+  const recentRuns = logEntries.filter(e => ['Easy run','Intervaltraining','Long run'].includes(e.type)).slice(0,5);
+  const avgItband = recentRuns.length ? Math.round(recentRuns.reduce((s,e)=>s+(e.itband||0),0)/recentRuns.length*10)/10 : 0;
+  const avgKnie = recentRuns.length ? Math.round(recentRuns.reduce((s,e)=>s+(e.knie||0),0)/recentRuns.length*10)/10 : 0;
+  const lastLongRun = logEntries.find(e=>e.type==='Long run');
+  const longRunMin = lastLongRun ? parseInt(lastLongRun.tijd)||0 : 0;
+
+  let advies = [];
+  if(avgItband >= 4) advies.push({type:'waarschuwing', tekst:`IT-band gemiddeld ${avgItband}/10 — long run inkorten tot 40 min deze week`});
+  else if(avgItband >= 2) advies.push({type:'info', tekst:`IT-band licht verhoogd (${avgItband}/10) — activering vóór elke run prioriteit`});
+  if(avgKnie >= 4) advies.push({type:'waarschuwing', tekst:`Knie gemiddeld ${avgKnie}/10 — intervals overslaan, alleen easy runs`});
+  if(longRunMin >= 60 && avgItband < 2 && avgKnie < 2) advies.push({type:'succes', tekst:'Herstel goed — klaar om long run met 5 min te verlengen'});
+  if(weekNum >= 3 && recentRuns.length >= 3 && avgItband < 2) advies.push({type:'succes', tekst:`Week ${weekNum}: tijd voor intervaltraining op woensdag`});
+
+  let html = '';
+
+  // DOELEN sectie
+  html += `<div class="ov-week">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="ov-week-title">Doelen</div>
+      <button onclick="showGoalForm()" style="background:var(--accent-dim);border:1px solid var(--accent);color:var(--accent);font-size:11px;font-family:'DM Mono',monospace;padding:4px 10px;border-radius:20px;cursor:pointer;">+ doel</button>
+    </div>
+    <div id="goals-list">`;
+
+  if(goals.length === 0) {
+    html += `<div style="font-size:13px;color:var(--text3);padding:12px 0;">Geen doelen ingesteld. Voeg een doel toe!</div>`;
+  }
+  goals.forEach((g,i) => {
+    const target = new Date(g.datum);
+    const now = new Date();
+    const wekenTot = Math.max(0, Math.ceil((target - now) / (7*24*60*60*1000)));
+    const verlopen = target < now;
+    html += `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text)">${g.naam}</div>
+          <div style="font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:2px">${g.datum}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-family:'DM Mono',monospace;font-size:12px;padding:3px 10px;border-radius:20px;${verlopen?'background:var(--bg3);color:var(--text3)':'background:var(--accent-dim);color:var(--accent)'}">
+            ${verlopen ? 'afgelopen' : wekenTot + ' wk'}
+          </span>
+          <button onclick="deleteGoal(${i})" style="background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:14px;">✕</button>
+        </div>
+      </div>
+      ${g.notitie?`<div style="font-size:12px;color:var(--text2);margin-top:6px">${g.notitie}</div>`:''}
+      ${!verlopen&&wekenTot<=16?`<div style="margin-top:10px;font-size:12px;color:var(--text2);line-height:1.5">
+        <span style="color:var(--accent);font-family:'DM Mono',monospace">${wekenTot} weken</span> — 
+        ${wekenTot<=4?'Dit is krap. Focus op blessurevrij blijven, geen nieuwe belasting.':wekenTot<=8?'Haalbaar. Opbouw starten met long run +5 min/week.':wekenTot<=12?'Goede tijd. Rustig opbouwen, week 5 en 9 zijn rustweek.':'Ruim de tijd. Solide fundament bouwen zonder haast.'}
+      </div>`:''}
+    </div>`;
+  });
+
+  html += `</div>
+    <div id="goal-form" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:8px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:12px">Nieuw doel</div>
+      <div class="log-row"><label class="log-label">Doel (bijv. Halve marathon Groningen)</label>
+        <input class="log-input" id="goal-naam" placeholder="Naam van het doel"></div>
+      <div class="log-row"><label class="log-label">Datum</label>
+        <input class="log-input" type="date" id="goal-datum"></div>
+      <div class="log-row"><label class="log-label">Notitie (optioneel)</label>
+        <input class="log-input" id="goal-notitie" placeholder="bijv. 5K onder 30 min"></div>
+      <button class="log-submit" onclick="saveGoal()">Doel opslaan</button>
+      <button onclick="document.getElementById('goal-form').style.display='none'" style="width:100%;padding:10px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:6px">Annuleren</button>
+    </div>
+  </div>`;
+
+  // SCHEMA ADVIES op basis van logboek
+  if(advies.length > 0) {
+    html += `<div class="ov-week"><div class="ov-week-title">Coach advies deze week</div>`;
+    advies.forEach(a => {
+      const kleur = a.type==='waarschuwing'?'var(--red)':a.type==='succes'?'var(--accent)':'var(--blue)';
+      const bg = a.type==='waarschuwing'?'var(--red-dim)':a.type==='succes'?'var(--accent-dim2)':'var(--blue-dim)';
+      html += `<div style="background:${bg};border-left:2px solid ${kleur};padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:8px;font-size:13px;color:var(--text2);line-height:1.5">${a.tekst}</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // WEEKSCHEMA
+  html += `<div class="ov-week"><div class="ov-week-title">Week ${weekNum} — schema</div>`;
+  DAYS.forEach((d,i) => {
+    const {t, done} = dayProgress(d);
+    const pct = t ? Math.round(done/t*100) : 0;
+    const isDone = done===t && t>0;
+    html += `<div class="ov-day" onclick="switchToDay(${i})">
+      <div class="ov-dot ov-dot-${d.dot}"></div>
+      <div class="ov-day-name">${d.name}</div>
+      <div class="ov-day-type">${d.type}</div>
+      <div class="ov-pct${isDone?' done':''}">${isDone?'✓':pct>0?pct+'%':''}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // REGELS
+  html += `<div class="rules-card">
+    <div class="rules-title">Jouw regels</div>
+    <div class="rule"><div class="rule-num">1</div><div class="rule-text">Hartslag is leidend — nooit boven 150 in de opbouwfase</div></div>
+    <div class="rule"><div class="rule-num">2</div><div class="rule-text">Pijn = stoppen. Ongemak mag, pijn niet.</div></div>
+    <div class="rule"><div class="rule-num">3</div><div class="rule-text">Activering altijd vóór het lopen doen</div></div>
+    <div class="rule"><div class="rule-num">4</div><div class="rule-text">Elke 3 weken een rustweek (30% minder volume)</div></div>
+    <div class="rule"><div class="rule-num">5</div><div class="rule-text">Slaap en eiwitten zijn ook training</div></div>
+  </div>`;
+
+  document.getElementById('overzichtBody').innerHTML = html;
+}
+
+function showGoalForm() {
+  const f = document.getElementById('goal-form');
+  f.style.display = f.style.display==='none' ? 'block' : 'none';
+}
+
+function saveGoal() {
+  const naam = document.getElementById('goal-naam').value.trim();
+  const datum = document.getElementById('goal-datum').value;
+  const notitie = document.getElementById('goal-notitie').value.trim();
+  if(!naam || !datum) { alert('Vul naam en datum in.'); return; }
+  let goals = [];
+  try { goals = JSON.parse(localStorage.getItem(KEY+'_goals') || '[]'); } catch(e) {}
+  goals.push({naam, datum, notitie});
+  goals.sort((a,b) => a.datum.localeCompare(b.datum));
+  try { localStorage.setItem(KEY+'_goals', JSON.stringify(goals)); } catch(e) {}
+  renderOverzicht();
+}
+
+function deleteGoal(i) {
+  let goals = [];
+  try { goals = JSON.parse(localStorage.getItem(KEY+'_goals') || '[]'); } catch(e) {}
+  goals.splice(i, 1);
+  try { localStorage.setItem(KEY+'_goals', JSON.stringify(goals)); } catch(e) {}
+  renderOverzicht();
+}
+
+function switchToDay(i) {
+  currentDay = i;
+  switchTab('schema');
+  renderSchema();
+}
+
+function buildSystemPrompt() {
+  const weekNum = getWeekNum();
+  const todayDay = DAYS[getTodayIdx()];
+  const completedToday = (() => {
+    const {done,t} = dayProgress(todayDay);
+    return `${done}/${t} oefeningen afgevinkt`;
+  })();
+  const weekProgress = DAYS.map(d => {
+    const {done,t} = dayProgress(d);
+    return `${d.name}: ${done}/${t}`;
+  }).join(', ');
+
+  const recentLogs = logEntries.slice(0,8).map(e =>
+    `${formatDatum(e.datum)} — ${e.type}${e.afstand?' '+e.afstand+'km':''}${e.tijd?' '+e.tijd+'min':''}${e.hartslag?' HR'+e.hartslag:''}${e.gevoel?' gevoel:'+e.gevoel:''}${e.itband>0?' IT-band:'+e.itband+'/10':''}${e.heup>0?' heup:'+e.heup+'/10':''}${e.knie>0?' knie:'+e.knie+'/10':''}${e.notitie?' notitie:"'+e.notitie+'"':''}`
+  ).join('\n');
+
+  let goals = [];
+  try { goals = JSON.parse(localStorage.getItem(KEY+'_goals') || '[]'); } catch(e) {}
+  const goalsText = goals.map(g => {
+    const wekenTot = Math.max(0, Math.ceil((new Date(g.datum)-new Date())/(7*24*60*60*1000)));
+    return `${g.naam} op ${g.datum} (${wekenTot} weken)${g.notitie?' — '+g.notitie:''}`;
+  }).join('\n') || 'Geen doelen ingesteld.';
+
+  const recentRuns = logEntries.filter(e=>['Easy run','Intervaltraining','Long run'].includes(e.type)).slice(0,5);
+  const avgItband = recentRuns.length ? (recentRuns.reduce((s,e)=>s+(e.itband||0),0)/recentRuns.length).toFixed(1) : 0;
+  const avgKnie = recentRuns.length ? (recentRuns.reduce((s,e)=>s+(e.knie||0),0)/recentRuns.length).toFixed(1) : 0;
+
+  return `Je bent de persoonlijke hardloopcoach van Niels Colijn uit Groningen. Je spreekt hem altijd aan als Niels, in het Nederlands, informeel (je/jij). Je bent direct, motiverend en eerlijk — niet overenthousiast, maar authentiek.
+
+NIELS ZIJN PROFIEL:
+- Recreatief loper, ±1 uur aan een stuk, ~6-7 km
+- Hartslag aerobisch onder 150
+- Halve marathon PR: 2:29
+- Blessurehistorie: IT-band syndroom + snapping hip → runner's knee
+- Blessuregevoelig, bouwt bewust rustig op
+- Apple Watch Series 9, Strava
+
+SCHEMA:
+- Ma: Easy run (HR <145) | Di: Rust | Wo: Easy/Intervals (wk3+) | Do: Kracht | Vr: Vrij | Za: Kracht | Zo: Long run
+
+HUIDIGE STATUS:
+- Week ${weekNum}
+- Vandaag: ${todayDay.name} (${todayDay.type}) — ${completedToday}
+- Weekvoortgang: ${weekProgress}
+- Gem. IT-band score (laatste 5 runs): ${avgItband}/10
+- Gem. knie score (laatste 5 runs): ${avgKnie}/10
+
+DOELEN:
+${goalsText}
+
+GELOGDE TRAININGEN (meest recent):
+${recentLogs || 'Nog geen trainingen gelogd.'}
+
+COACHING STIJL:
+- Reageer als een echte coach die de data kent
+- IT-band of knie >= 4: serieus nemen, schema aanpassen
+- IT-band of knie >= 6: rust adviseren, geen looptraining
+- Verwijs naar doelen bij het geven van advies over opbouw
+- Als doel dichtbij is (< 6 weken): extra nadruk op blessurevrij blijven
+- Bondig (max 150 woorden) tenzij uitleg nodig
+- Geen emoji's tenzij Niels ze gebruikt`;
+}
+
+function renderChat() {
+  const el = document.getElementById('chatMessages');
+  el.innerHTML = '';
+  if(chatHistory.length === 0) {
+    el.innerHTML = `<div class="msg assistant">
+      <div class="msg-bubble">Hey Niels! Ik ben je coach. Vertel me hoe de trainingen gaan, meld klachten, of stel gewoon een vraag. Ik ben hier.</div>
+      <div class="msg-time">${formatTime()}</div>
+    </div>`;
+    return;
+  }
+  chatHistory.forEach(msg => {
+    el.innerHTML += `<div class="msg ${msg.role}">
+      <div class="msg-bubble">${msg.content.replace(/\n/g,'<br>')}</div>
+      <div class="msg-time">${msg.time||''}</div>
+    </div>`;
+  });
+}
+
+function scrollChat() {
+  const el = document.getElementById('chatMessages');
+  setTimeout(() => { el.scrollTop = el.scrollHeight; }, 50);
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+
+  const apiKey = getApiKey();
+  if(!apiKey) { showCoachPanel(); return; }
+
+  const time = formatTime();
+  chatHistory.push({role:'user', content:text, time});
+  input.value = '';
+  input.style.height = 'auto';
+  save();
+  renderChat();
+
+  // typing indicator
+  const typingId = 'typing-'+Date.now();
+  document.getElementById('chatMessages').innerHTML += `<div class="msg assistant" id="${typingId}">
+    <div class="typing"><span></span><span></span><span></span></div>
+  </div>`;
+  scrollChat();
+
+  document.getElementById('sendBtn').disabled = true;
+
+  try {
+    const messages = chatHistory.slice(-14).map(m => ({
+      role: m.role === 'user' ? 'user' : 'assistant',
+      content: m.content
+    }));
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: buildSystemPrompt(),
+        messages
+      })
+    });
+
+    const data = await resp.json();
+    if(data.error) throw new Error(data.error.message);
+    const reply = data.content?.map(b => b.text||'').join('') || 'Geen antwoord ontvangen.';
+
+    document.getElementById(typingId)?.remove();
+    const replyTime = formatTime();
+    chatHistory.push({role:'assistant', content:reply, time:replyTime});
+    save();
+    renderChat();
+    scrollChat();
+  } catch(e) {
+    document.getElementById(typingId)?.remove();
+    const errMsg = e.message?.includes('401') || e.message?.includes('auth')
+      ? 'API key ongeldig. Tik op "API key wijzigen" en voer een geldige key in.'
+      : 'Verbindingsfout. Controleer je internet en probeer opnieuw.';
+    chatHistory.push({role:'assistant', content:errMsg, time:formatTime()});
+    save();
+    renderChat();
+    scrollChat();
+  }
+
+  document.getElementById('sendBtn').disabled = false;
+}
+
+// auto-resize textarea
+document.getElementById('chatInput').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120)+'px';
+});
+document.getElementById('chatInput').addEventListener('keydown', function(e) {
+  if(e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+// INIT
+load();
+currentDay = getTodayIdx();
+document.getElementById('weekBadge').textContent = `week ${getWeekNum()}`;
+renderSchema();
+</script>
+</body>
+</html>
